@@ -1,0 +1,23 @@
+{
+  "mock": true,
+  "dry_run": false,
+  "watchlist": ["005930", "000660", "035420"],
+  "interval_sec": 60,
+  "market_open": "09:05",
+  "market_close": "15:15",
+  "data_dir": "data",
+  "strategy": {
+    "short_window": 5,
+    "long_window": 20,
+    "take_profit_pct": 3.0,
+    "stop_loss_pct": 2.0,
+    "sell_on_dead_cross": true
+  },
+  "risk": {
+    "budget_per_stock": 1000000,
+    "max_positions": 3,
+    "max_daily_loss": 300000,
+    "max_orders_per_day": 20,
+    "max_order_amount": 2000000
+  }
+}
