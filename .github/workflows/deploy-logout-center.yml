@@ -1,0 +1,26 @@
+name: Deploy Logout Center (Fly.io)
+
+on:
+  push:
+    branches: ["main", "ccr-*"]
+    paths: ["logout_center/**", ".github/workflows/deploy-logout-center.yml"]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-logout-center
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@1.5
+      - name: Create app if missing
+        working-directory: logout_center
+        run: flyctl status --app logout-center >/dev/null 2>&1 || flyctl apps create logout-center
+      - name: Deploy
+        working-directory: logout_center
+        run: flyctl deploy --remote-only --ha=false
